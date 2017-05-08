@@ -14,7 +14,18 @@ import datetime
 import ironman
 from os.path import join, dirname
 
-GoogleAPISecret = join(dirname(ironman.__file__), "resources", "GoogleAPISecret.json")
+GoogleAPISecret = {
+  "type": "service_account",
+  "project_id": "ironman-scrapy",
+  "private_key_id": "e1f820d0e65ca25b5ef512ce09e02453ef1c6e6d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDStcXgpPZL3Crc\nyIaCzG3xFuu36f8uG9VvMVVG1Uknd0ADp+jYAnvGzuiRNtZxP8SH7unjmTo0DSfZ\niV3PPosUkI6J+7KSA1uB4dVqFKDouI75Kfb6TWJoMgBDRyg9maRZNH9HECWEWYbi\ng9Yb+YSaraG/G4TNOli1Bmum1Z3AeMtpmWoE+zeVzb4IWux938N6yo6llAH65DS+\nk2GhUnMDSzijIjnatooRR5ZcMYkG3Y/hfFpsiwwB8S2oVxMZtsVbjor1qhETYAyA\nioqKDl0ke3ZHlkrXLsaBmAATGFiGXKAlGqR5uEurq6KPXYCq95UGefU9QH9SpuDc\nultfLm3DAgMBAAECggEASikD3g7xSL3SsCY7gWmmAEaK7A4FbBsLwbjhRK7osmU8\nOI0uXGhzXAOSwxlD3FQPPbCOzTYu0AcZUW0RgVGH7dL6+AGIVe+sk0gCrvVXtNDQ\nMU3dyTbXPcjrYsJ2nUeoGmVprn82VSCVYr/36ZymWTJnTTXIRdsVQZFi7jMc9JJr\nt5xGGKqjosTSTvdhRIy6M8ckBtPAdoCsBshIyyMenlKpc+m60b9LOVUwZxwMLIxO\n7ESmmrCjShw9TOr2zfDjjyPyDGEbNVrAGQOniSMo+Y3/vUdRiRbjMMT+OpQObf50\nG4CGxBd4Rtav38FJ8N96/zX/j8kNVVn+cy85wma5AQKBgQDpywZ2diAmk3MIktHs\nAgGDUuOKU176w0Ks08DwYYN6yh4x/IK5oinGCBH6u/dbmQA0FL7sg+aqpRptWudy\npap8IhcI8PM06zLeO4kpZaL7bSVSAUQ17hL0QgZ/vOQbxb77hRprfSpm2JtgUtT1\nYNhBva9CBEtbYABJr58xJumoAwKBgQDmuXR0qyYiSQC7Uk/ME73EjnA98gHOFDbB\ns9u/aXOKzCa/Jbuu4pnlTXYMmy750Gou7tE94aLfAzY//W869THOB6PBf6x/nJ+R\noHA0Lye5NaCqWofP33K+B86ZW5KWGHCxUoDlil6QvPd04rBCGom9chykuupLuIBp\n4YGSe+uXQQKBgCYvUs7mXDnwu0kbMc4qRbT9RMzC8TBj0/AGZezdAGx9tpDTfUZ0\nhf4iM02QhcYgJzhaaxSWNoaIkNhrkIHZLQ85QinjsNVj1NsXPj/UqdoG6aGLM2jb\niZz7a7RRVbBzi83o33fO6a4Ckt4YqU+qkaerI4TUzroN4/4lAQs2H9OhAoGASrOz\nC+86CpG+ZegRpA6kO5auqq/He9S5od+8/22CFmdhCDSMXuRJVZ/N3+kCvamIJ6f1\nIWcD19bvYqqIr/shZAa/M3BGBo9MbtcWXR8Daoj9ewqSvHApc3ONpcOrY2OIYTFI\nQImbcptsN3EKBm0XObpPodpO77NOCHoV/LqYncECgYBAtSwehKtZP/y7RYIhUXr2\njMxF9dJYYKD90L2KV8CzIMZYYXhqWNDD9r/M+OU5zxalFHMHpDrq2vweyiuGmNj4\ncfXqOx4vKOcCWkes6RUjw6ftYTAjyog89vuIxLkjzfI4ra2PsISQUM5++mp6QM6a\neSJ/G8T6Gb/gbbpOIYBfsw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "admin-612@ironman-scrapy.iam.gserviceaccount.com",
+  "client_id": "107767311000103791322",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/admin-612%40ironman-scrapy.iam.gserviceaccount.com"
+}
 
 def callback(request_id, response, exception):
     if exception:
@@ -44,7 +55,7 @@ class CSVPipeline(object):
     self.exporter.start_exporting()
 
     scopes = ['https://www.googleapis.com/auth/drive']
-    self.credentials = ServiceAccountCredentials.from_json_keyfile_name(GoogleAPISecret, scopes)
+    self.credentials = ServiceAccountCredentials.from_json_keyfile_dict(GoogleAPISecret, scopes)
 
     # Create an authorized Drive API client.
     http = httplib2.Http()
