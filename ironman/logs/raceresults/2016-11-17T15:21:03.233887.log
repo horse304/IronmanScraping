@@ -1,0 +1,18 @@
+2016-11-17 15:21:03 [scrapy] ERROR: Error caught on signal handler: <bound method ?.spider_idle of <scrapyrt.core.CrawlManager object at 0x10875f510>>
+Traceback (most recent call last):
+  File "/Users/danguyen/virtualenvs/scrapy/lib/python2.7/site-packages/scrapy/utils/signal.py", line 30, in send_catch_log
+    *arguments, **named)
+  File "/Users/danguyen/virtualenvs/scrapy/lib/python2.7/site-packages/pydispatch/robustapply.py", line 55, in robustApply
+    return receiver(*arguments, **named)
+  File "/Users/danguyen/virtualenvs/scrapy/lib/python2.7/site-packages/scrapyrt/core.py", line 193, in spider_idle
+    callback = getattr(self.crawler.spider, self.callback_name)
+AttributeError: 'RaceResultsSpider' object has no attribute 'parse_foo'
+2016-11-17 15:21:03 [scrapy] INFO: Closing spider (finished)
+2016-11-17 15:21:03 [scrapy] INFO: Dumping Scrapy stats:
+{'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2016, 11, 17, 4, 21, 3, 332012),
+ 'log_count/ERROR': 1,
+ 'log_count/INFO': 6,
+ 'log_count/WARNING': 3,
+ 'start_time': datetime.datetime(2016, 11, 17, 4, 21, 3, 330273)}
+2016-11-17 15:21:03 [scrapy] INFO: Spider closed (finished)

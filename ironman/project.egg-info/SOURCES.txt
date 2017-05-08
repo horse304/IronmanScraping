@@ -1,0 +1,13 @@
+setup.py
+ironman/__init__.py
+ironman/items.py
+ironman/pipelines.py
+ironman/settings.py
+ironman/spiders/__init__.py
+ironman/spiders/quotes_spider.py
+ironman/spiders/raceresults_spider.py
+project.egg-info/PKG-INFO
+project.egg-info/SOURCES.txt
+project.egg-info/dependency_links.txt
+project.egg-info/entry_points.txt
+project.egg-info/top_level.txt

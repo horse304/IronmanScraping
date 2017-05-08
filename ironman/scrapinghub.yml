@@ -1,0 +1,7 @@
+projects:
+  default: 123494
+
+requirements:
+  file: requirements.txt
+  eggs:
+    - eggs/ironman.egg
