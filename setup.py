@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name         = 'ironman',
-    version      = '1.2',
+    version      = '1.3',
     packages     = find_packages(),
     package_data ={
         'ironman': ['resources/GoogleAPISecret.json']
