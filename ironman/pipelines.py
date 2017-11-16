@@ -12,9 +12,13 @@ import httplib2
 import apiclient.http
 import datetime
 import ironman
+import logging
 from os.path import join, dirname
 
 GoogleAPISecret = join(dirname(ironman.__file__), "resources", "GoogleAPISecret.json")
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 def callback(request_id, response, exception):
     if exception:
@@ -50,11 +54,21 @@ class CSVPipeline(object):
     http = httplib2.Http()
     self.credentials.authorize(http)
     self.drive_service = apiclient.discovery.build('drive', 'v3', http=http)
+  
+    results = self.drive_service.files().list(pageSize=10,fields="nextPageToken, files(id, name)").execute()
+    items = results.get('files', [])
+    if not items:
+        print('No files found.')
+    else:
+        print('Files:')
+        for item in items:
+            print('{0} ({1})'.format(item['name'], item['id']))
 
   def spider_closed(self, spider):
     self.exporter.finish_exporting()
     file = self.files.pop(spider)
     file.close()
+    print(file)
     self.upload_file(spider.csv_filename, spider.url, spider.emails)
 
   def process_item(self, item, spider):
@@ -62,6 +76,7 @@ class CSVPipeline(object):
     return item
 
   def upload_file(self, filename, url, emails):
+    print 'begin upload' + filename + url
     # Insert a file. Files are comprised of contents and metadata.
     # MediaFileUpload abstracts uploading file contents from a file on disk.
     media_body = apiclient.http.MediaFileUpload(

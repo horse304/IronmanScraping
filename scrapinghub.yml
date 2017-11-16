@@ -3,5 +3,3 @@ projects:
 
 requirements:
   file: requirements.txt
-  eggs:
-    - eggs/ironman.egg
